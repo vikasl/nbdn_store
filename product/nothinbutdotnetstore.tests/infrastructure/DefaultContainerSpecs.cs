@@ -47,9 +47,31 @@ namespace nothinbutdotnetstore.tests.infrastructure
 
              static object test;
          }
+
+         [Concern(typeof(DefaultContainer))]
+         public class when_requesting_an_instance_of_a_inteface_type : concern
+         {
+             because b = () =>
+             {
+                 test = sut.instance_of(typeof(OurInterface));
+             };
+
+
+             it should_return_an_instance_of_a_type = () =>
+             {
+                 test.should_be_an_instance_of<OurClass>();
+
+             };
+
+             static object test;
+         }
      }
 
-     public class OurClass {
+     public class OurClass :OurInterface{
          public OurClass() {}
+     }
+
+     public interface  OurInterface
+     {
      }
  }
