@@ -44,7 +44,6 @@ namespace nothinbutdotnetstore.tests.web
         
              it first_observation = () =>
              {
-
                  response_engine.received(result1 => result1.display(department_list));
             
              };
