@@ -18,19 +18,19 @@ namespace nothinbutdotnetstore.tests.infrastructure
         {
             context c = () =>
             {
-                constructor_resolver = the_dependency<ConstructorResolver>();
+                constructor_resolution = the_dependency<ConstructorResolution>();
                 connection = container_dependency<IDbConnection>();
                 command = container_dependency<IDbCommand>();
                 reader = container_dependency<IDataReader>();
                 another_dependency = container_dependency<AnotherDependency>();
 
-                constructor_resolver.Stub(resolver => resolver.pick_constructor_for(typeof(OurItemWithDependencies))).Return(typeof(OurItemWithDependencies).greediest_contructor());
+                constructor_resolution.Stub(resolver => resolver.pick_constructor_for(typeof(OurItemWithDependencies))).Return(typeof(OurItemWithDependencies).greediest_contructor());
                 provide_a_basic_sut_constructor_argument(typeof(OurItemWithDependencies));
             };
 
             because b = () =>
             {
-                sut.create();
+                result = sut.create();
             };
 
 
@@ -43,8 +43,8 @@ namespace nothinbutdotnetstore.tests.infrastructure
                 item_with_dependencies.another_dependency.should_be_equal_to(another_dependency);
             };
 
-            static OurItemWithDependencies result;
-            static ConstructorResolver constructor_resolver;
+            static object result;
+            static ConstructorResolution constructor_resolution;
             static IDbConnection connection;
             static IDbCommand command;
             static IDataReader reader;
