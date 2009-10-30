@@ -13,7 +13,7 @@ namespace nothinbutdotnetstore.web.application
 
         public override void process(Request request)
         {
-            service.add_product_to_cart(request.map<LineItem>());
+            service.modify_quantity_for_a_products(request.map<LineItem>());
         }
     }
 }

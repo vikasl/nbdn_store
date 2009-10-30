@@ -37,7 +37,7 @@ namespace nothinbutdotnetstore.tests.web
         
              it should_send_a_message_to_add_a_product_to_the_cart = () =>
              {
-                 service.received(service1 => service1.add_product_to_cart(input_model));
+                 service.received(service1 => service1.modify_quantity_for_a_products(input_model));
              };
 
              private static ShoppingCartTask service;
