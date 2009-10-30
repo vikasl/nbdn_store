@@ -4,24 +4,28 @@ namespace nothinbutdotnetstore.domain
 {
     public class CartItem
     {
+        public  int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+
         public virtual void increment_quantity_by(int quantity)
         {
-            throw new NotImplementedException();
+            Quantity += quantity;
         }
 
         public virtual bool is_item_for(Product product)
         {
-            throw new NotImplementedException();
+            return ProductId == product.ProductId;
         }
 
         public virtual void change_quantity_to(int new_quantity)
         {
-            throw new NotImplementedException();
+            Quantity = new_quantity;
         }
 
         public virtual decimal calculate_total_cost()
         {
-            throw new NotImplementedException();
+            return Price*Quantity;
         }
     }
 }
