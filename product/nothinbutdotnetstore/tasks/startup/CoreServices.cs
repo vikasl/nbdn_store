@@ -28,12 +28,14 @@ namespace nothinbutdotnetstore.tasks.startup
 
         public void register<ContractType, Implementation>()
         {
-            throw new NotImplementedException();
+            activators.Add(typeof(ContractType),
+                new AutoWiringInstanceActivator(new DefaultConstructorResolution(), typeof(Implementation)));
         }
 
         public void register<Implementation>()
         {
-            throw new NotImplementedException();
+            activators.Add(typeof(Implementation),
+                new AutoWiringInstanceActivator(new DefaultConstructorResolution(), typeof(Implementation)));
         }
 
         public void register_an_activator_for<ContractType>(Func<object> activator)

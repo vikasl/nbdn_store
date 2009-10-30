@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nothinbutdotnetstore.tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nothinbutdotnetstore.web.ui", "product\nothinbutdotnetstore.web.ui\nothinbutdotnetstore.web.ui.csproj", "{357983B7-2D2B-4044-951A-7004364F2549}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{8E9DF232-3203-46A6-9D52-679B2056AA90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
