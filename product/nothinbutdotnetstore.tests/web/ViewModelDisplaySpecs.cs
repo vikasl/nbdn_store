@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  using System;
  using System.Collections.Generic;
  using developwithpassion.bdd.contexts;
@@ -54,4 +55,38 @@ namespace nothinbutdotnetstore.tests.web
              static  Func<Request, IEnumerable<DepartmentItem>> model_query;
          }
      }
+=======
+ namespace nothinbutdotnetstore.tests.web
+ {   
+   public class ViewModelDisplaySpecs
+   {
+     public abstract class concern : observations_for_a_sut_with_a_contract<contract_interface,
+                                       contract_implementation>
+     {
+        
+     }
+
+     [Concern(typeof(contract_implementation))]
+     public class when_observation_name : concern
+     {
+       context c = () =>
+       {
+            
+       };
+
+       because b = () =>
+       {
+        
+       };
+
+        
+       it first_observation = () =>
+       {
+         
+            
+            
+       };
+     }
+   }
+>>>>>>> d0d42313525a0fa71722789c8e4bfa5c77c5fd59
  }
