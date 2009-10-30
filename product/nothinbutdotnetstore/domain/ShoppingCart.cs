@@ -1,68 +1,59 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace nothinbutdotnetstore.domain
 {
-    public class ShoppingCart {
-        private Dictionary<Product,int> list_of_products;
-        private CostCalculator cost_calculator;
+    public class ShoppingCart
+    {
+        CartItemFactory item_factory;
+        public virtual IList<CartItem> items { get; protected set; }
 
-        protected  ShoppingCart()
-        {
-        }
+        public ShoppingCart() {}
 
-        public ShoppingCart( CostCalculator calculator)
+        public ShoppingCart(CartItemFactory item_factory, IList<CartItem> items)
         {
-            list_of_products = new Dictionary<Product, int>();
-            cost_calculator = calculator;
+            this.item_factory = item_factory;
+            this.items = items;
         }
 
         public virtual void add(Product product_to_add, int quantity_of_product)
         {
-            if( list_of_products.ContainsKey(product_to_add))
+            if (contains_item_for(product_to_add))
             {
-                list_of_products[product_to_add] += quantity_of_product;
+                get_item_for(product_to_add).increment_quantity_by(quantity_of_product);
+                return;
             }
-            else
-            {
-                list_of_products.Add(product_to_add,quantity_of_product);
-            }
+            items.Add(item_factory.create_item_for(product_to_add, quantity_of_product));
         }
 
-        public virtual void modify(Product modified, int quantity)
+        CartItem get_item_for(Product product_to_add)
         {
-            Console.WriteLine("quantity" + quantity );
-            if( quantity == 0)
-                remove(modified);
+            return items.First(item => item.is_item_for(product_to_add));
         }
 
-        public virtual void remove(Product product_to_remove)
+        bool contains_item_for(Product product_to_add)
         {
-            list_of_products.Remove(product_to_remove);
+            return items.Any(item => item.is_item_for(product_to_add));
         }
 
-        public virtual IEnumerable<Product> getListOfProducts()
+        public virtual void change_quantity(Product product, int new_quantity)
         {
-            foreach (var product in list_of_products.Keys)
-            {
-                 yield return product;
-            }
+            get_item_for(product).change_quantity_to(new_quantity);
         }
 
-        public virtual void  clear()
+        public virtual void remove(Product product)
         {
-            list_of_products = new Dictionary<Product, int>();
+            items.Remove(get_item_for(product));
         }
 
-        public virtual decimal  get_total_cost()
+        public virtual void empty()
         {
-            return cost_calculator.GetTotalCost(list_of_products);
-
+            items.Clear();
         }
-    }
 
-    public  interface CostCalculator
-    {
-        decimal GetTotalCost(Dictionary<Product, int> dictionary);
+        public virtual decimal calculate_total_cost()
+        {
+            return items.Sum(item => item.calculate_total_cost());
+        }
     }
 }
